@@ -7,9 +7,51 @@
 </head>
 
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+   <!--  the entire body must be written by student -->
+   <!-- <script type="text/javascript" src="./script.js"> -->
+<!-- </script> -->
+
+
+
+	<h1>EventTarget Class Definition</h1>
+
+  <script>
+    class EventTarget {
+      constructor() {
+        this.listeners = {};
+      }
+
+      addEventListener(eventType, callback) {
+        if (!this.listeners[eventType]) {
+          this.listeners[eventType] = [];
+        }
+
+        // Check if the callback is already in the list
+        if (!this.listeners[eventType].includes(callback)) {
+          this.listeners[eventType].push(callback);
+        }
+      }
+
+      removeEventListener(eventType, callback) {
+        if (!this.listeners[eventType]) return;
+
+        // Find the index of the callback in the list
+        const index = this.listeners[eventType].indexOf(callback);
+        if (index !== -1) {
+          this.listeners[eventType].splice(index, 1);
+        }
+      }
+
+      dispatchEvent(eventType) {
+        if (!this.listeners[eventType]) return;
+
+        // Call each listener for the event type
+        for (const callback of this.listeners[eventType]) {
+          callback();
+        }
+      }
+    }
+  </script>
 
 </body>
 
